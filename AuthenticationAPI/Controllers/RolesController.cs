@@ -1,0 +1,22 @@
+﻿using AuthenticationAPI.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace AuthenticationAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RolesController : ControllerBase
+    {
+        private readonly IUserService _service;
+        public RolesController(IUserService service)
+        {
+            _service = service;
+        }
+        [HttpPost("{userId}/{role}")]
+        public async Task<IActionResult> Assign(string userId, string role)
+        {
+            return Ok(await _service.AssingRoleAsync(userId, role));
+        }
+    }
+}
